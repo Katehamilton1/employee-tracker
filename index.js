@@ -6,10 +6,10 @@ const consoleTable = require(`console.table`);
 var connection = mysql.createConnection({
     host: "localhost",
     // MySQL username,
-    user: "root@localhost",
+    user: "root",
     // MySQL password
     password: "hamilton",
-    database: "employee-tracker",
+    database: "employeeTracker",
 });
 connection.connect(function (err) {
     if (err) throw err;
@@ -19,7 +19,7 @@ function firstPrompt() {
 
     inquirer.prompt([{
         type: "list",
-        name: "action",
+        name: "choice",
         message: "what would you like to do?",
         choices:
             ["View all employees",
@@ -32,8 +32,8 @@ function firstPrompt() {
 
                 "End"]
     }])
-.then(function ({ answer }) {
-    switch (answer.action) {
+.then(function ({ answers }) {
+    switch (answers.choice) {
         // Variety of cases that fire a function depending on the selection from prompt
         case "View all employees":
             viewEmployees();
@@ -77,6 +77,10 @@ function firstPrompt() {
 
 
 function viewEmployees() {
+    connection.query("SELECT * FROM employee" , function (err,data) {
+        console.log(data);
+        firstPrompt();
+    })
 }
 
 
