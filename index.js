@@ -32,7 +32,7 @@ function firstPrompt() {
 
                 "End"]
     }])
-.then(function ({ answers }) {
+.then(function (answers) {
     switch (answers.choice) {
         // Variety of cases that fire a function depending on the selection from prompt
         case "View all employees":
@@ -83,14 +83,58 @@ function viewEmployees() {
     })
 }
 
-
-
 function  viewDepartment() {
+    connection.query("SELECT * FROM department" , function (err,data) {
+        console.log(data);
+        firstPrompt();
+})
+}
+
+function  viewRole() {
+    connection.query("SELECT * FROM role" , function (err,data) {
+        console.log(data);
+        firstPrompt();
+})
 }
 
 
-
 function addEmployee() {
+    inquirer.prompt([
+        {
+            type: "input",
+            message:"Please enter employee's first name:",
+            name:"first_name"
+        },
+        {
+            type: "input",
+            message:"Please enter employee's last name:",
+            name:"last_name"
+        },
+        {
+            type: "input",
+            message:"What is the employee's role?",
+            name:"role_id"
+        },
+        {
+            type: "input",
+            message:"Who is the employees manager(managerId)?",
+            name:"manager_id"
+        },
+    ])
+    .then(function (answer) {
+        connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [answer.first_name, answer.last_name, answer.role_id, answer.manager_id], function(err, data ) {
+            console.log(data);
+            if (err) throw err;
+            console.table("info inserted");
+            firstPrompt();
+          });
+        });
+    }
+
+
+
+function addDepartment() {
+
 }
 
 function addRole() {
