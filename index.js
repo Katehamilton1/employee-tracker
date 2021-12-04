@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const consoleTable = require(`console.table`);
 
 
 var connection = mysql.createConnection({
@@ -16,7 +17,7 @@ connection.connect(function (err) {
 
 function firstPrompt() {
 
-    inquirer.prompt({
+    inquirer.prompt([{
         type: "list",
         name: "action",
         message: "what would you like to do?",
@@ -30,8 +31,7 @@ function firstPrompt() {
                 "Update employee role",
 
                 "End"]
-    })
-}
+    }])
 .then(function ({ answer }) {
     switch (answer.action) {
         // Variety of cases that fire a function depending on the selection from prompt
@@ -71,6 +71,8 @@ function firstPrompt() {
             break;
     }
 })
+}
+
 
 
 

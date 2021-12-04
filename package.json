@@ -3,5 +3,25 @@
     "console.table": "^0.10.0",
     "inquirer": "^8.2.0",
     "mysql": "^2.18.1"
-  }
+  },
+  "name": "employee-tracker",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Katehamilton1/employee-tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Katehamilton1/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/Katehamilton1/employee-tracker#readme"
 }
