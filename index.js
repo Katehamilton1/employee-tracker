@@ -164,7 +164,7 @@ function addRole() {
     inquirer.prompt([
         {
             type: "input",
-            name: "role",
+            name: "title",
             message: "What role would you like to add?"
         },
         {
@@ -179,7 +179,7 @@ function addRole() {
         }
     ])
         .then(function (answer) {
-            connection.query("INSERT INTO role (title, salary, department_id VALES(?, ?, ?)", [answer.title, answer.salary, answer.department_id], function (err, data) {
+            connection.query("INSERT INTO role (title, salary, department_id) VALUES(?, ?, ?)", [answer.title, answer.salary, answer.department_id], function (err, data) {
                 console.table("role added")
                 firstPrompt()
             });
