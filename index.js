@@ -24,7 +24,7 @@ function firstPrompt() {
         choices:
             ["View all employees",
                 "View all employees by department",
-                "View all employees By role",
+                "View all employees by role",
                 "Add employee",
                 "Add department",
                 "Add role",
@@ -43,7 +43,7 @@ function firstPrompt() {
                     viewDepartment();
                     break;
 
-                case "View All employees by role":
+                case "View all employees by role":
                     viewRole();
                     break;
 
@@ -171,10 +171,15 @@ function addRole() {
             type: "number",
             name: "salary",
             message: "What is the salary of this role?"
+        },
+        {
+            type: "number",
+            name: "department_id",
+            message: "enter department ID:"
         }
     ])
         .then(function (answer) {
-            connection.query("INSERT INTO roles (title, salary, department_id VALES(?, ?, ?)", [answer.title, answer.salary, answer.department_id], function (err, data) {
+            connection.query("INSERT INTO role (title, salary, department_id VALES(?, ?, ?)", [answer.title, answer.salary, answer.department_id], function (err, data) {
                 console.table("role added")
                 firstPrompt()
             });
@@ -193,7 +198,8 @@ function addRole() {
                 message: "enter the new role ID:",
                 name: "role_id"
             }
-        ]).then(function (answer) {
+        ])
+        .then(function (answer) {
             connection.query("UPDATE employee SET role_id = ? WHERE first_name = ?", [answer.role_id, answer.name], function (err, data) {
                 console.log(data);
                 if (err) throw err;
