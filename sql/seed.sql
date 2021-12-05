@@ -23,11 +23,11 @@ VALUES
 INSERT INTO employee 
     (first_name, last_name, role_id, manager_id)
 VALUES
- ("Austin", "Hamilton", 2, 3),
-("kate", "shively", 2, 1),
-("Sam","Cates", 3, 1),
-("john", "Braswell", 4, 3),
-("Piper","May", 1, 2);
+ ("Austin", "Hamilton", 2, 1),
+("kate", "shively", 2, 2),
+("Sam","Cates", 3, 3),
+("john", "Braswell" 4, 4),
+("Piper","May", 1, 5);
 
 
 

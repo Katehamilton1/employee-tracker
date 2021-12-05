@@ -71,7 +71,8 @@ function firstPrompt() {
                     break;
 
                 default:
-                    console.log("You have made an invalid chocie. PLease contact the developer")
+                    console.log("You have made an invalid choice.")
+                    firstPrompt()
             }
         })
 }
@@ -115,18 +116,19 @@ function addEmployee() {
         },
         {
             type: "input",
-            message: "What is the employee's role?",
+            message: "What is the employee's role(role id number)?",
             name: "role_id"
         },
         {
             type: "input",
-            message: "Who is the employees manager(managerId)?",
+            message: "Who is the employees manager(managerId number)?",
             name: "manager_id"
         },
     ])
         .then(function (answer) {
-            connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [answer.first_name, answer.last_name, answer.role_id, answer.manager_id], function (err, data) {
-                console.log(data);
+            console.log(answer)
+    
+            connection.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${answer.first_name}", "${answer.last_name}", ${answer.role_id},${answer.manager_id})`, function (err, data) {
                 if (err) throw err;
                 console.table("Employee info added");
                 firstPrompt();
@@ -151,7 +153,7 @@ function addDepartment() {
         .then(function (answer) {
             connection.query("INSERT INTO department (name) VALUES(?)", [answer.department], function (err, data) {
                 console.log(data);
-                if (err) throw err;
+             
                 console.table("department added")
                 firstPrompt();
             });
@@ -173,8 +175,6 @@ function addRole() {
     ])
         .then(function (answer) {
             connection.query("INSERT INTO roles (title, salary, department_id VALES(?, ?, ?)", [answer.title, answer.salary, answer.department_id], function (err, data) {
-                console.log(data);
-                if (err) throw err;
                 console.table("role added")
                 firstPrompt()
             });
@@ -184,13 +184,13 @@ function addRole() {
     function updateRole() {
         inquirer.prompt([
             {
-                message: "which employee would you like to update? (use first name only)",
                 type: "input",
+                message: "which employee would you like to update? (use first name only)",
                 name: "name"
             }, 
             {
+                    type: "number",
                 message: "enter the new role ID:",
-                type: "number",
                 name: "role_id"
             }
         ]).then(function (answer) {
@@ -202,3 +202,5 @@ function addRole() {
             });
         })
     }
+
+    firstPrompt()
